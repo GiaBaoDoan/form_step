@@ -1,16 +1,14 @@
 import { formState } from "..";
 import Input from "./Input";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-
-const Infor = ({
-  errors,
-  register,
-}: {
+type TypeInfor = {
   errors?: FieldErrors<formState>;
   register: UseFormRegister<formState>;
-}) => {
+};
+
+const Infor = ({ errors, register }: TypeInfor) => {
   return (
-    <div>
+    <section>
       <h2 className="text-2xl text-blue-950  font-extrabold">Personal info</h2>
       <p className="mt-3 text-gray-500 text-sm">
         Please provide your name, email, address, and phone number.
@@ -41,7 +39,7 @@ const Infor = ({
           placeholder="e.g. +1 234 567 890 Next Step"
         />
       </form>
-    </div>
+    </section>
   );
 };
 

@@ -11,7 +11,7 @@ const Thank = () => {
     };
   }, []);
   return (
-    <div className="flex items-center flex-col justify-center">
+    <section className="flex items-center flex-col justify-center">
       <div className="gap-5 flex flex-col items-center">
         {show && <img src="/images/icon-thank-you.svg" alt="" />}
         <p className="text-blue-950 font-bold text-2xl">Thank you!</p>
@@ -21,7 +21,7 @@ const Thank = () => {
           at support@loremgaming.com.
         </p>
       </div>
-    </div>
+    </section>
   );
 };
 

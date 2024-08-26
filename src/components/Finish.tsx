@@ -1,16 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { PlanOption } from "..";
 import { incrementByAmount } from "../slice/PlanSlice";
+import { checkOption, getSumPrice } from "../utils";
+import { useStore } from "../hook";
 
 const Finish = () => {
-  const { add, plan } = useSelector((state: RootState) => state);
+  const { dispatch, add, plan } = useStore();
   const { option, type, price } = plan;
-  const checkOption = plan.option === PlanOption.YEARLY ? false : true;
-  const dispatch = useDispatch();
-  const totalPrice = add.reduce((total, num) => {
-    return total + num.price;
-  }, 0);
+  const totalPrice = getSumPrice(add);
   return (
     <div>
       <h2 className="text-2xl text-blue-950 font-extrabold">Finishing up</h2>
@@ -31,7 +26,7 @@ const Finish = () => {
             </button>
           </div>
           <p className="font-bold text-lg text-blue-950">
-            ${price}/{!checkOption ? "yr" : "mo"}
+            ${price}/{checkOption(plan) ? "mo" : "yr"}
           </p>
         </div>
         {add.length > 0 && <hr className="border-gray-300" />}
@@ -48,10 +43,10 @@ const Finish = () => {
       </div>
       <div className="flex justify-between items-center p-5 mt-5 space-y-1">
         <p className="text-gray-500">
-          Total (per {!checkOption ? "Year" : "Mounth"})
+          Total (per {checkOption(plan) ? "Mounth" : "Year"})
         </p>
         <p className="font-bold text-lg text-blue-500">
-          ${totalPrice + price}/{checkOption ? "mo" : "yr"}
+          ${totalPrice + price}/{checkOption(plan) ? "mo" : "yr"}
         </p>
       </div>
     </div>

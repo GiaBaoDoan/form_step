@@ -1,4 +1,3 @@
-import "./App.css";
 import FormLayOut from "./components/FormLayOut";
 import StepRps from "./components/StepRps";
 

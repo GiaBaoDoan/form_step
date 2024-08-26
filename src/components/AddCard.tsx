@@ -5,8 +5,7 @@ type AddCard = {
   active: boolean;
   handelOnclick: () => void;
 };
-const AddCard = (card: AddCard) => {
-  const { title, content, count, active, handelOnclick } = card;
+const AddCard = ({ title, content, count, active, handelOnclick }: AddCard) => {
   return (
     <div
       onClick={handelOnclick}

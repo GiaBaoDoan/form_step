@@ -7,9 +7,9 @@ import { PlanType } from "..";
 
 const Plan = () => {
   const dispatch = useDispatch();
-  const data = useSelector((state: RootState) => state.plan);
+  const planState = useSelector((state: RootState) => state.plan);
   return (
-    <div>
+    <section>
       <h2 className="text-2xl text-blue-950 font-extrabold">
         Select your plan
       </h2>
@@ -22,17 +22,17 @@ const Plan = () => {
           icon="/images/icon-arcade.svg"
           price={9}
           title="arcade"
-          active={data.type === PlanType.ARCADE}
+          active={planState.type === PlanType.ARCADE}
         />
         <PlanCard
           handelDispatch={() => dispatch(planTow())}
           icon="/images/icon-advanced.svg"
           price={12}
           title="advanced"
-          active={data.type === PlanType.ADVANCE}
+          active={planState.type === PlanType.ADVANCE}
         />
         <PlanCard
-          active={data.type === PlanType.PRO}
+          active={planState.type === PlanType.PRO}
           handelDispatch={() => dispatch(planThree())}
           icon="/images/icon-pro.svg"
           price={15}
@@ -40,7 +40,7 @@ const Plan = () => {
         />
       </div>
       <Service />
-    </div>
+    </section>
   );
 };
 
