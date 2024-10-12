@@ -1,18 +1,9 @@
-import { PlanOption } from "..";
-import { Addtype } from "../slice/AddSlice";
-import { PlanState } from "../slice/CountSlice";
-// calulate sum price
-const getSumPrice = (A: Addtype[]) =>
-  A.reduce((total, num) => {
-    return total + num.price;
-  }, 0);
-// check active card
-const checkActive = (id: number, A: Addtype[]) => {
-  const res = A.find((item) => item.id === id);
-  return res ? true : false;
-};
-// check option
-const checkOption = (A: PlanState) =>
-  A.option === PlanOption.YEARLY ? false : true;
+import { Service } from "../slice/AddSlice";
 
-export { getSumPrice, checkActive, checkOption };
+// calulate sum price
+const getSumPrice = (arr: Service[]) =>
+  arr.reduce((total, num) => {
+    return total + num.extraPrice;
+  }, 0);
+
+export { getSumPrice };

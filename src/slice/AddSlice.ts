@@ -1,32 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import services from "../data/service.json";
 
-export interface Addtype {
+export interface Service {
   id: number;
   title: string;
-  price: number;
+  extraPrice: number;
+  content: string;
+  active: boolean;
 }
 
-const initialState: Addtype[] = [];
+const initialState: Service[] = services;
 
-export const addSlice = createSlice({
-  name: "add",
+export const addServiceSlice = createSlice({
+  name: "service",
   initialState,
   reducers: {
-    addAction(state, action: PayloadAction<Addtype>) {
-      const { payload } = action;
-      const { id } = payload;
-      const index = state.findIndex((item) => item.id === id);
-      if (!state[index]) {
-        state.push(payload);
-      } else {
-        state.splice(index, 1);
-      }
+    addService(state, action: PayloadAction<{ id: number }>) {
+      const { id } = action.payload;
+      const index = state?.findIndex((service) => service?.id === id);
+      state[index].active = !state[index].active;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addAction } = addSlice.actions;
+export const { addService } = addServiceSlice.actions;
 
-export default addSlice.reducer;
+export default addServiceSlice.reducer;

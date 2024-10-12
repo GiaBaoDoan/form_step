@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PlanOption, PlanType } from "..";
+import { PlanType } from "..";
 
 export interface PlanState {
   type: PlanType;
-  option: PlanOption;
+  option: boolean;
   price: number;
 }
 
 const initialState: PlanState = {
   type: PlanType.ARCADE,
-  option: PlanOption.MOUNTHLY,
+  option: false,
   price: 9,
 };
 
@@ -17,50 +17,43 @@ export const planSlice = createSlice({
   name: "plan",
   initialState,
   reducers: {
-    planOne: (state) => {
-      state.price =
-        (state.option as PlanOption) === PlanOption.MOUNTHLY ? 9 : 90;
-      state.type = PlanType.ARCADE;
+    setPlan: (
+      state,
+      action: PayloadAction<{
+        price: number;
+        type: PlanType;
+      }>
+    ) => {
+      const { price, type } = action.payload;
+      state.price = state.option ? price * 10 : price;
+      state.type = type;
     },
-    planTow: (state) => {
-      state.price =
-        (state.option as PlanOption) === PlanOption.MOUNTHLY ? 12 : 120;
-      state.type = PlanType.ADVANCE;
-    },
-    planThree: (state) => {
-      state.price =
-        (state.option as PlanOption) === PlanOption.MOUNTHLY ? 15 : 150;
-      state.type = PlanType.PRO;
-    },
-    setOtion: (state, action: PayloadAction<boolean>) => {
-      const { payload } = action;
-      state.option = payload ? PlanOption.YEARLY : PlanOption.MOUNTHLY;
-      if (payload) {
-        if (state.type === "PRO") {
-          state.price = 150;
+
+    setOption: (state, action: PayloadAction<boolean>) => {
+      const { payload: option } = action;
+      state.option = option;
+
+      switch (state.type) {
+        case "PRO": {
+          state.price = option ? 150 : 15;
+          break;
         }
-        if (state.type === "ADVANCE") {
-          state.price = 120;
+        case "ADVANCE": {
+          state.price = option ? 120 : 12;
+          break;
         }
-        if (state.type === "ARCADE") {
-          state.price = 90;
+        case "ARCADE": {
+          state.price = option ? 90 : 9;
+          break;
         }
-      } else {
-        if (state.type === "PRO") {
-          state.price = 15;
-        }
-        if (state.type === "ADVANCE") {
-          state.price = 12;
-        }
-        if (state.type === "ARCADE") {
-          state.price = 9;
-        }
+        default:
+          return;
       }
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { planOne, planTow, planThree, setOtion } = planSlice.actions;
+export const { setPlan, setOption } = planSlice.actions;
 
 export default planSlice.reducer;

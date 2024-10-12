@@ -1,14 +1,16 @@
 import { Add, Button, Finish, Infor, Plan, Steps, Thank } from "./index.ts";
-import { decrement, increment, incrementByAmount } from "../slice/PlanSlice.ts";
+import { prevStep, nextStep, changeStep } from "../slice/PlanSlice.ts";
 import { useEffect, useState } from "react";
 import { useFormSetup, useStore } from "../hook";
 const FormLayOut = () => {
   const { errors, handleSubmit, register } = useFormSetup();
   const { dispatch, counter } = useStore();
-  const COUNT_STEP = counter.value;
   const [confirm, setConfirm] = useState<boolean>(false);
+
+  const COUNT_STEP = counter.value;
+
   const onSubmit = handleSubmit(() => {
-    dispatch(increment());
+    dispatch(nextStep());
     if (COUNT_STEP === 4 && !Object.keys(errors).length) {
       setConfirm(true);
     }
@@ -38,7 +40,7 @@ const FormLayOut = () => {
       >
         {COUNT_STEP !== 1 && (
           <Button
-            handelSubmit={() => dispatch(decrement())}
+            handelSubmit={() => dispatch(prevStep())}
             type="button"
             containerStyle="text-gray-500 hover:text-blue-900"
             title="Go back"
@@ -55,7 +57,7 @@ const FormLayOut = () => {
   };
   useEffect(() => {
     if (Object.keys(errors).length) {
-      dispatch(incrementByAmount(1));
+      dispatch(changeStep(1));
     }
   }, [errors]);
   return (

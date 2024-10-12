@@ -4,6 +4,7 @@ import { useStore } from "../hook/";
 const Steps = () => {
   const { counter } = useStore();
   const COUNT_STEP = counter.value;
+
   return (
     <aside className="relative max-md:hidden">
       <img

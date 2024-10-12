@@ -1,0 +1,23 @@
+{
+   "option" : false,
+   "plans" :  [
+        {
+            "priceMonthly": 9,
+            "priceYearly": 90,
+            "title": "ARCADE",
+            "logo" : "images/icon-arcade.svg"
+        },
+        {
+            "priceMonthly": 12,
+            "priceYearly": 120,
+            "title": "ADVANCE",
+            "logo" : "images/icon-advanced.svg"
+        },
+        {
+            "priceMonthly": 15,
+            "priceYearly": 150,
+            "title": "PRO",
+            "logo" : "images/icon-pro.svg"
+        }
+    ]
+}

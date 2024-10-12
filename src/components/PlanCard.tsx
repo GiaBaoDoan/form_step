@@ -1,19 +1,29 @@
 import { useSelector } from "react-redux";
 import type { RootState } from "../store/store";
-import { checkOption } from "../utils";
-type planCard = {
+import React from "react";
+
+type PlanCard = {
   icon: string;
   title: string;
   price: number;
   active: boolean;
   handelDispatch: () => void;
 };
+
 // handel class
 const handelClass = (active: boolean) =>
   active ? "border-blue-500 bg-blue-50" : "hover:border-blue-500";
+
 // main component
-const PlanCard = ({ icon, price, title, handelDispatch, active }: planCard) => {
-  const planState = useSelector((state: RootState) => state.plan);
+const PlanCard: React.FC<PlanCard> = ({
+  icon,
+  price,
+  title,
+  handelDispatch,
+  active,
+}) => {
+  const plan = useSelector((state: RootState) => state.plan);
+
   return (
     <section
       onClick={handelDispatch}
@@ -21,13 +31,13 @@ const PlanCard = ({ icon, price, title, handelDispatch, active }: planCard) => {
         active
       )}`}
     >
-      <img src={icon} alt="" />
+      <img src={icon} alt="icon" />
       <div className="md:space-y-2">
         <p className="capitalize font-bold text-blue-950">{title}</p>
         <p className="text-slate-400 md:mb-3 text-sm">
-          {!checkOption(planState) ? `$${price * 10}/yr` : `$${price}/mo`}
+          {plan.option ? `$${price * 10}/yr` : `$${price}/mo`}
         </p>
-        {!checkOption(planState) && (
+        {plan.option && (
           <span className="font-bold text-blue-950 text-sm">2 months free</span>
         )}
       </div>

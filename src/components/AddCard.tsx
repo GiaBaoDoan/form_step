@@ -1,11 +1,18 @@
 type AddCard = {
   title: string;
   content: string;
-  count: string;
+  extraPrice: number;
   active: boolean;
   handelOnclick: () => void;
 };
-const AddCard = ({ title, content, count, active, handelOnclick }: AddCard) => {
+
+const AddCard: React.FC<AddCard> = ({
+  title,
+  content,
+  extraPrice,
+  active,
+  handelOnclick,
+}) => {
   return (
     <div
       onClick={handelOnclick}
@@ -24,7 +31,7 @@ const AddCard = ({ title, content, count, active, handelOnclick }: AddCard) => {
           <p className="font-bold text-blue-950">{title}</p>
           <p className="text-gray-400 mt-1 text-sm">{content}</p>
         </div>
-        <span className="text-blue-700">+${count}/mo</span>
+        <span className="text-blue-700">+${extraPrice}/mo</span>
       </div>
     </div>
   );

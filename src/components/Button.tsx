@@ -1,3 +1,5 @@
+import React from "react";
+
 type buttonType = {
   title: string;
   containerStyle?: string;
@@ -5,8 +7,9 @@ type buttonType = {
   handelSubmit?: () => void;
 };
 
-const Button = (buttonProps: buttonType) => {
+const Button: React.FC<buttonType> = (buttonProps) => {
   const { containerStyle, type, title, handelSubmit } = buttonProps;
+
   return (
     <button onClick={handelSubmit} type={type} className={`${containerStyle}`}>
       {title}
